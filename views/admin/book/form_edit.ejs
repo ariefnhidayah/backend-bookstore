@@ -1,0 +1,74 @@
+<h1 class="h3 mb-4 text-gray-800">Edit Buku</h1>
+
+<%- include('../messages.ejs') %>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <form action="/admin/book/<%= book.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group row">
+                <label class="col-md-2" for="name">Judul Buku</label>
+                <input type="text" name="name" id="name" class="form-control col-md-7" placeholder="Masukkan nama buku" required value="<%= book.name %>">
+            </div>
+            <div class="form-group row">
+                <label for="image" class="col-md-2">Gambar</label>
+                <input type="file" name="image">
+            </div>
+            <div class="form-group row">
+                <label for="author" class="col-md-2">Penulis</label>
+                <input type="text" class="form-control col-md-7" name="author" placeholder="Masukkan nama penulis" required value="<%= book.author %>">
+            </div>
+            <div class="form-group row">
+                <label for="description" class="col-md-2">Deskripsi</label>
+                <textarea name="description" id="description" cols="5" rows="3" class="form-control col-md-7" placeholder="Masukkan deskripsi" required><%= book.description %></textarea>
+            </div>
+            <div class="form-group row">
+                <label for="price" class="col-md-2">Harga</label>
+                <input type="number" class="form-control col-md-7" name="price" id="price" placeholder="Masukkan harga" required value="<%= book.price %>">
+            </div>
+            <div class="form-group row">
+                <label for="stock" class="col-md-2">Stok</label>
+                <input type="number" class="form-control col-md-7" id="stock" name="stock" placeholder="Masukkan stok" required value="<%= book.stock %>">
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-md-2">Banner</label>
+                <div class="form-check col-md-7">
+                    <% if(book.banner == 1) { %>
+                        <input class="form-check-input" type="checkbox" id="defaultCheck1" name="banner" checked>
+                    <% } else { %>
+                        <input class="form-check-input" type="checkbox" id="defaultCheck1" name="banner">
+                    <% } %>
+                    <label class="form-check-label" for="defaultCheck1">
+                      Aktif
+                    </label>
+                  </div>
+            </div>
+            <div class="form-group row">
+                <label for="category" class="col-md-2">Kategori</label>
+                <select name="categoryId" id="category" class="col-md-7 form-control" required>
+                    <option value="" disabled selected>Pilih Kategori</option>
+                    <% for (let i = 0; i < category.length; i++) { %>
+                        <% if (category[i].id == book.categoryId) { %>
+                            <option value="<%= category[i].id %>" selected><%= category[i].name %></option>
+                        <% } else { %>
+                            <option value="<%= category[i].id %>"><%= category[i].name %></option>
+                        <% } %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="weight" class="col-md-2">Berat / gram</label>
+                <input type="number" name="weight" required class="form-control col-md-7" placeholder="Contoh: 50" value="<%= book.weight %>" />
+            </div>
+            <div class="form-group row">
+                <label for="seo_url" class="col-md-2">Seo URL <br> (Tidak bisa diubah)</label>
+                <input type="text" name="seo_url" readonly required placeholder="Contoh: buku-tulis-baru" class="form-control col-md-7" value="<%= book.seo_url %>">
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="/admin/book" class="btn btn-secondary">Kembali</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

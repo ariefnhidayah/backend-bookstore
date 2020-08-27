@@ -1,0 +1,35 @@
+<%- include('../templates/header.ejs') %>
+
+<!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <%- include('../templates/sidebar.ejs') %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <%- include('../templates/navbar.ejs') %>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <%- include(content) %>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <%- include('../templates/footer.ejs') %>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <%- include('../templates/additional.ejs') %>

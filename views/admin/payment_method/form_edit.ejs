@@ -1,0 +1,30 @@
+<h1 class="h3 mb-4 text-gray-800">Edit Metode Pembayaran</h1>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <form action="/admin/payment-method/<%= payment_method.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group row">
+                <label class="col-md-2">Nama Bank</label>
+                <input type="text" name="name_bank" class="form-control col-md-7" placeholder="Masukkan nama bank" required value="<%= payment_method.name_bank %>">
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Gambar</label>
+                <input type="file" name="image">
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Nama Pemiliki</label>
+                <input type="text" class="form-control col-md-7" name="account_name" required placeholder="Masukkan nama pemilik" value="<%= payment_method.account_name %>">
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Nomor Rekening</label>
+                <input type="number" class="form-control col-md-7" name="account_number" required placeholder="Masukkan no rekening" value="<%= payment_method.account_number %>">
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Ubah</button>
+                    <a href="/admin/payment-method" class="btn btn-secondary">Kembali</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

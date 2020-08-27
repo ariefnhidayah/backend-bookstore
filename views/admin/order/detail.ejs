@@ -1,0 +1,157 @@
+<h1 class="h3 mb-4 text-gray-800">Detail Pesanan</h1>
+
+<%- include('../messages.ejs') %>
+
+<div class="card shadow mb-4">
+    <div class="cart-header p-3">
+        <a href="/admin/order" class="btn btn-secondary">Kembali</a>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Metode Pembayaran</th>
+                        <td><%= order.payment_method.name_bank %></td>
+                    </tr>
+                </table>
+                <% if(order.payment_image) { %>
+                    <a href="<%= site_url + order.payment_image %>" target="_blank">
+                        <img src="<%= site_url + order.payment_image %>" alt="<%= order.code %>" style="width: 100%;" class="img">
+                    </a>
+                <% } else { %>
+                    Bukti pembayaran belum ada
+                <% } %>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>No. Pesanan</th>
+                        <td><%= order.code %></td>
+                    </tr>
+                    <tr>
+                        <th>Pembeli</th>
+                        <td><%= order.customer.name %></td>
+                    </tr>
+                    <tr>
+                        <th>Alamat Pembeli</th>
+                        <td><%= order.address + ' ' + order.city + ' ' + order.province %></td>
+                    </tr>
+                    <tr>
+                        <th>Pengiriman</th>
+                        <td><%= order.shipping_courier %></td>
+                    </tr>
+                </table>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Subtotal</th>
+                        <td>Rp. <%= rupiah(order.subtotal) %></td>
+                    </tr>
+                    <tr>
+                        <th>Biaya Pengiriman</th>
+                        <td>Rp. <%= rupiah(order.shipping_cost) %></td>
+                    </tr>
+                    <tr>
+                        <th>Total Bayar</th>
+                        <td>Rp. <%= rupiah(order.total_price) %></td>
+                    </tr>
+                    <tr>
+                        <th>Kode Transfer</th>
+                        <td><%= order.transfer_code %></td>
+                    </tr>
+                    <tr>
+                        <th>Total Bayar + Kode</th>
+                        <td>Rp. <%= rupiah(order.total_plus_code) %></td>
+                    </tr>
+                </table>
+                <table class="table-bordered table">
+                    <tr>
+                        <th>Status Pembayaran</th>
+                        <th>Status Pesanan</th>
+                    </tr>
+                    <tr>
+                        <%
+                        let label_payment_status = ''
+                        if (order.payment_status == 0) {
+                            label_payment_status = 'Menunggu Pembayaran'
+                        } else if (order.payment_status == 1) {
+                            label_payment_status = 'Sudah Dibayar'
+                        } else {
+                            label_payment_status = 'Ditolak'
+                        }
+
+                        let label_status = ''
+                        if (order.status == 0) {
+                            label_status = 'Pesanan Baru'
+                        } else if (order.status == 1) {
+                            label_status = 'Pesanan Dikirim'
+                        } else if (order.status == 2) {
+                            label_status = 'Pesanan Selesai'
+                        } else if (order.status == 3) {
+                            label_status = 'Pesanan Ditolak'
+                        } else {
+                            label_status = 'Pesanan Diproses'
+                        }
+                        %>
+                        <td><%= label_payment_status %></td>
+                        <td><%= label_status %></td>
+                    </tr>
+                </table>
+                <% if(order.payment_status == 0) { %>
+                    <form action="/admin/order/accepted/<%= order.id %>?_method=PUT" class="d-inline" method="POST">
+                        <button class="btn btn-success" type="button" onclick="submitAction(this)">Konfirmasi Pembayaran</button>
+                    </form>
+                    <form action="/admin/order/rejected/<%= order.id %>?_method=PUT" class="d-inline" method="POST">
+                        <button class="btn btn-danger" type="button" onclick="submitAction(this)">Tolak Pesanan</button>
+                    </form>
+                <% } else if (order.payment_status == 1) { %>
+                    <form action="/admin/order/<%= order.id %>?_method=PUT" class="d-inline" method="POST">
+                        <div class="form-group">
+                            <label for="">Ubah Status Pesanan</label>
+                            <select name="status" id="status" class="form-control">
+                                <% if(order.status == 0) { %>
+                                    <option value="0" selected>Pesanan Diproses</option>
+                                <% } else { %>
+                                    <option value="0">Pesanan Diproses</option>
+                                <% } %>
+                                <% if(order.status == 1) { %>
+                                    <option value="1" selected>Pesanan Dikirim</option>
+                                <% } else { %>
+                                    <option value="1">Pesanan Dikirim</option>
+                                <% } %>
+                                <% if(order.status == 2) { %>
+                                    <option value="2" selected>Pesanan Selesai</option>
+                                <% } else { %>
+                                    <option value="2">Pesanan Selesai</option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" type="button" onclick="submitAction(this)">Ubah</button>
+                    </form>
+                <% } else { %>
+                    <button class="btn btn-danger" type="button">Pesanan Ditolak!</button>
+                <% } %>
+            </div>
+            <div class="col-md-5">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Buku</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    <% for(let i = 0; i < order_books.length; i++) { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><%= order_books[i].book.name %></td>
+                            <td>Rp. <%= rupiah(order_books[i].price) %></td>
+                            <td><%= order_books[i].quantity %></td>
+                            <td>Rp. <%= rupiah(order_books[i].subtotal) %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

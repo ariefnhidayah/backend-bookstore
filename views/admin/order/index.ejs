@@ -1,0 +1,64 @@
+<h1 class="h3 mb-4 text-gray-800">Pesanan</h1>
+
+<%- include('../messages.ejs') %>
+
+<div class="card shadow mb-4">
+    <div class="cart-header p-3">
+        <!-- <a href="/admin/category/add" class="btn btn-primary">Tambah</a> -->
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="table-order" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No Pesanan</th>
+                        <th>Pembeli</th>
+                        <th>Subtotal</th>
+                        <th>Ongkos Kirim</th>
+                        <th>Total</th>
+                        <th>Status Pembayaran</th>
+                        <th style="width: 30px;">Metode Pembayaran</th>
+                        <th style="width: 130px;">Opsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i = 0; i < order.length; i++) { %>
+                        <%
+                        let label_payment_status = ''
+                        if (order[i].payment_status == 0) {
+                            label_payment_status = 'Menunggu Pembayaran'
+                        } else if (order[i].payment_status == 1) {
+                            label_payment_status = 'Sudah Dibayar'
+                        } else {
+                            label_payment_status = 'Ditolak'
+                        }
+                        %>
+                        <tr>
+                            <td><%= order[i].code %></td>
+                            <td><%= order[i].customer.name %></td>
+                            <td>Rp. <%= rupiah(order[i].subtotal) %></td>
+                            <td>Rp. <%= rupiah(order[i].shipping_cost) %></td>
+                            <td>Rp. <%= rupiah(order[i].total_price) %></td>
+                            <td>
+                                <% if (order[i].payment_status == 0) { %>
+                                    <span class="badge badge-warning">Menunggu Pembayaran</span>
+                                <% } else if (order[i].payment_status == 1) { %>
+                                    <span class="badge badge-success">Sudah Dibayar</span>
+                                <% } else { %>
+                                    <span class="badge badge-danger">Ditolak</span>
+                                <% } %>
+                            </td>
+                            <td><%= order[i].payment_method.name_bank %></td>
+                            <td>
+                                <a href="/admin/order/<%= order[i].id %>" class="btn btn-primary btn-sm">Detail</a>
+                                <form action="/admin/order/<%= order[i].id %>?_method=DELETE" method="POST" class="d-inline">
+                                    <button class="btn btn-danger btn-sm" onclick="deleteItem(this)" type="button">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

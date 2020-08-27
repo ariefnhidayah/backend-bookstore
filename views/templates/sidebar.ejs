@@ -1,0 +1,82 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/dashboard">
+      <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-laugh-wink"></i>
+      </div>
+      <div class="sidebar-brand-text mx-3">LiburAN</div>
+    </a>
+
+    <hr class="sidebar-divider my-0">
+
+    <li class="nav-item <%- (menu_active == 'dashboard') ? 'active' : '' %>">
+      <a class="nav-link" href="/admin/dashboard">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+      Master
+    </div>
+
+    <li class="nav-item <%- (menu_active == 'category') ? 'active' : '' %>">
+      <a class="nav-link" href="/admin/category">
+        <i class="fas fa-fw fa-list-alt"></i>
+        <span>Kategori</span></a>
+    </li>
+
+    <li class="nav-item <%- (menu_active == 'book') ? 'active' : '' %>">
+      <a class="nav-link" href="/admin/book">
+        <i class="fas fa-fw fa-book"></i>
+        <span>Buku</span></a>
+    </li>
+
+    <li class="nav-item <%- (menu_active == 'payment-method') ? 'active' : '' %>">
+      <a class="nav-link" href="/admin/payment-method">
+        <i class="fas fa-fw fa-money-check"></i>
+        <span>Metode Pembayaran</span></a>
+    </li>
+
+    <div class="sidebar-heading">
+      Order
+    </div>
+
+    <li class="nav-item <%- (menu_active == 'order') ? 'active' : '' %>">
+      <a class="nav-link" href="/admin/order">
+        <i class="fas fa-fw fa-shopping-cart"></i>
+        <span>Pesanan</span></a>
+    </li>
+
+    <div class="sidebar-heading">
+      Setting
+    </div>
+
+    <li class="nav-item <%- (menu_active == 'user') ? 'active' : '' %>">
+      <a class="nav-link" href="/admin/user">
+        <i class="fas fa-fw fa-users"></i>
+        <span>User</span></a>
+    </li>
+
+    <!-- <li class="nav-item <%- (menu_active == 'role') ? 'active' : '' %>">
+      <a class="nav-link" href="/admin/role">
+        <i class="fas fa-fw fa-user-tag"></i>
+        <span>Role</span></a>
+    </li>
+
+    <li class="nav-item <%- (menu_active == 'permission') ? 'active' : '' %>">
+      <a class="nav-link" href="/admin/permission">
+        <i class="fas fa-fw fa-lock"></i>
+        <span>Permission</span></a>
+    </li> -->
+
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!-- End of Sidebar -->

@@ -1,0 +1,63 @@
+<h1 class="h3 mb-4 text-gray-800">Kategori</h1>
+
+<%- include('../messages.ejs') %>
+
+<div class="card shadow mb-4">
+    <div class="cart-header p-3">
+        <a href="/admin/category/add" class="btn btn-primary">Tambah</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Opsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i = 0; i < category.length; i++) { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><%= category[i].name %></td>
+                            <td>
+                                <a href="javascript:void(0)" data-name="<%= category[i].name %>" data-id="<%= category[i].id %>" onclick="showModal(this)" class="btn btn-warning">Ubah</a>
+                                <form action="/admin/category/delete/<%= category[i].id %>?_method=DELETE" method="POST" class="d-inline">
+                                    <button class="btn btn-danger" type="button" onclick="deleteItem(this)">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Kategori</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/admin/category?_method=PUT" method="POST">
+            <input type="hidden" name="id" id="id">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nama Kategori</label>
+                    <input type="text" name="name" id="editName" class="form-control" placeholder="Masukkan nama kategori" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,66 @@
+<h1 class="h3 mb-4 text-gray-800">Tambah Buku</h1>
+
+<%- include('../messages.ejs') %>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <form action="/admin/book" method="POST" enctype="multipart/form-data">
+            <div class="form-group row">
+                <label class="col-md-2" for="name">Judul Buku</label>
+                <input type="text" name="name" id="name" class="form-control col-md-7" placeholder="Masukkan nama buku" required>
+            </div>
+            <div class="form-group row">
+                <label for="image" class="col-md-2">Gambar</label>
+                <input type="file" name="image">
+            </div>
+            <div class="form-group row">
+                <label for="author" class="col-md-2">Penulis</label>
+                <input type="text" class="form-control col-md-7" name="author" placeholder="Masukkan nama penulis" required>
+            </div>
+            <div class="form-group row">
+                <label for="description" class="col-md-2">Deskripsi</label>
+                <textarea name="description" id="description" cols="5" rows="3" class="form-control col-md-7" placeholder="Masukkan deskripsi" required></textarea>
+            </div>
+            <div class="form-group row">
+                <label for="price" class="col-md-2">Harga</label>
+                <input type="number" class="form-control col-md-7" name="price" id="price" placeholder="Masukkan harga" required>
+            </div>
+            <div class="form-group row">
+                <label for="stock" class="col-md-2">Stok</label>
+                <input type="number" class="form-control col-md-7" id="stock" name="stock" placeholder="Masukkan stok" required>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-md-2">Banner</label>
+                <div class="form-check col-md-7">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="banner">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Aktif
+                    </label>
+                  </div>
+            </div>
+            <div class="form-group row">
+                <label for="category" class="col-md-2">Kategori</label>
+                <select name="categoryId" id="category" class="col-md-7 form-control" required>
+                    <option value="" disabled selected>Pilih Kategori</option>
+                    <% for (let i = 0; i < category.length; i++) { %>
+                        <option value="<%= category[i].id %>"><%= category[i].name %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="weight" class="col-md-2">Berat / gram</label>
+                <input type="number" name="weight" required class="form-control col-md-7" placeholder="Contoh: 50">
+            </div>
+            <div class="form-group row">
+                <label for="seo_url" class="col-md-2">Seo URL <br> (Tidak bisa diubah)</label>
+                <input type="text" name="seo_url" required placeholder="Contoh: buku-tulis-baru" class="form-control col-md-7">
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <a href="/admin/book" class="btn btn-secondary">Kembali</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

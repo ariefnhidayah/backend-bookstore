@@ -1,0 +1,44 @@
+<h1 class="h3 mb-4 text-gray-800">Metode Pembayaran</h1>
+
+<%- include('../messages.ejs') %>
+
+<div class="card shadow mb-4">
+    <div class="cart-header p-3">
+        <a href="/admin/payment-method/add" class="btn btn-primary">Tambah</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Gambar</th>
+                        <th>Nama Bank</th>
+                        <th>Nama Pemiliki</th>
+                        <th>Nomor Rekening</th>
+                        <th>Opsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i = 0; i < payment_method.length; i++) { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td class="text-center">
+                                <img src="<%= site_url + payment_method[i].image %>" style="width: 85px;"/>
+                            </td>
+                            <td><%= payment_method[i].name_bank %></td>
+                            <td><%= payment_method[i].account_name %></td>
+                            <td><%= payment_method[i].account_number %></td>
+                            <td>
+                                <a href="/admin/payment-method/<%= payment_method[i].id %>" class="btn btn-warning">Edit</a>
+                                <form action="/admin/payment-method/<%= payment_method[i].id %>?_method=DELETE" class="d-inline" method="POST">
+                                    <button type="button" class="btn btn-danger" onclick="deleteItem(this)">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
